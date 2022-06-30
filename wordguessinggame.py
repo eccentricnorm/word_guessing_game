@@ -1,4 +1,10 @@
-answer = "Eccentric"
+import random
+word_file = open('words_alpha.txt')
+word_list = word_file.read()
+word_list = word_list.split("\n")
+word_file.close()
+
+answer = random.choice(word_list)
 answer = answer.upper()
 
 def wordguess(answer):
@@ -9,6 +15,10 @@ def wordguess(answer):
     while number_of_guesses > 0:
         guess = str(input("Guess a letter or word:"))
         guess = guess.upper()
+        while guess in wrong_guesses: #as long as it has been guessed, it will throw an error
+            print("You've already guessed '" + str(guess) + "'. Try again.")
+            guess = str(input("Guess a letter or word:"))
+            guess = guess.upper()
         if len(guess) == 1:
             #Check If Letter is in word
             if guess in answer:
